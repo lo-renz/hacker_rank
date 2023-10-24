@@ -5,39 +5,24 @@ public class JavaSubstringComparisons {
     public static String getSmallestAndLargest(String s, int k) {
         String smallest = "";
         String largest = "";
+        smallest = largest = s.substring(0, k);
 
-        String[] substring = new String[];
+        // [1   2   3   4   5]
+        // [12, 23, 34, 45]
 
-        for (int i = 0; k <= s.length(); i++) {
-            substring[i] = s.substring(i, k);
-            k += 1;
-        }
-
-        // Look for smallest substring
-        smallest = substring[0];
-        for (int j = 0; j < substring.length; j++) {
-            if (substring[j].compareTo(smallest) < 0) {
-                // if a smaller substring is found then swap it with the first position in the
-                // list
-                String tmp = substring[0];
-                substring[0] = substring[j];
-                substring[j] = tmp;
+        // [1    2    3    4    5    6    7    8    9    10   11   12   13]
+        // [w    e    l    c    o    m    e    t    o    j    a    v    a]
+        // [wel, elc, lco, com, ome, met, eto, toj, oja, jav, ava]
+        for(int i = 1; i < s.length()-k+1; i++) {
+            String substring = s.substring(i, i + k);
+            if(substring.compareTo(smallest) < 0) {
+                smallest = substring;
+            }
+            if(substring.compareTo(largest) > 0) {
+                largest = substring;
             }
         }
 
-        // Sort the list
-        for (int i = 1; i < substring.length - 1; i++) {
-            if (substring[i + 1].compareTo(substring[i]) < 0) {
-                // if a smaller substring is found then swap it with the first position in the
-                // list
-                String tmp = substring[i];
-                substring[i] = substring[i + 1];
-                substring[i + 1] = tmp;
-            }
-        }
-
-        smallest = substring[0];
-        largest = substring[substring.length - 1];
         return smallest + "\n" + largest;
     }
 
@@ -47,7 +32,6 @@ public class JavaSubstringComparisons {
         int k = scan.nextInt();
         scan.close();
 
-        // getSmallestAndLargest(s, k);
         System.out.println(getSmallestAndLargest(s, k));
     }
 }
